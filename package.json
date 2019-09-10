@@ -1,0 +1,60 @@
+{
+  "name": "mock-api",
+  "description": "mock api for learning",
+  "author": "Maximo De Leon <maximo.deleon@prodigygame.com>",
+  "version": "0.0.0",
+  "scripts": {
+    "config-dev": "AWS_PROFILE=dev CONFIG_VERBOSE=true config echo",
+    "config-staging": "AWS_PROFILE=staging CONFIG_VERBOSE=true config echo",
+    "config-test": "ENV=test CONFIG_VERBOSE=true config echo",
+    "config-local": "ENV=local CONFIG_VERBOSE=true config echo",
+    "config-ps": "CONFIG_VERBOSE=true config echo",
+    "start": "node ./src/server.js",
+    "dev": "AWS_PROFILE=dev config node src/server.js",
+    "dev-debug": "AWS_PROFILE=dev PORT=4000 config node --inspect-brk=12769 src/server.js",
+    "staging": "AWS_PROFILE=staging config node src/server.js",
+    "staging-debug": "AWS_PROFILE=staging config node --inspect-brk=12769 src/server.js",
+    "production": "AWS_PROFILE=production config node src/server.js",
+    "test": "AWS_PROFILE=dev config jest --coverage",
+    "test-clear-cache": "AWS_PROFILE=dev config jest --clearCache",
+    "test-debug": "AWS_PROFILE=dev config node --inspect-brk=12769 node_modules/.bin/jest --runInBand",
+    "test-watch": "AWS_PROFILE=dev config jest --watchAll",
+    "lint": "./node_modules/eslint/bin/eslint.js src test",
+    "fixlint": "./node_modules/.bin/eslint --fix src test",
+    "build:doc": "apidoc -f src/routes/"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "@prodigy/api": "~9.0.1",
+    "@prodigy/auth": "~0.0.2",
+    "@prodigy/cache": "~3.0.1",
+    "@prodigy/config": "~2.1.0",
+    "@prodigy/formatter": "~4.0.1",
+    "@prodigy/logger": "~4.0.1",
+    "@prodigy/mailer": "~2.0.0",
+    "@prodigy/pgsql": "~1.0.0",
+    "@prodigy/request": "~5.0.4",
+    "@prodigy/validate": "~1.1.0"
+  },
+  "devDependencies": {
+    "@prodigy/eslint-config-prodigy": "0.0.5",
+    "apidoc": "^0.17.6",
+    "eslint": "^3.13.1",
+    "eslint-config-airbnb-base": "^9.0.0",
+    "eslint-plugin-import": "^2.2.0",
+    "pre-commit": "^1.2.2",
+    "nodemon": "^1.9.2",
+    "jest": "^23.6.0",
+    "eslint-plugin-jest": "^22.1.3"
+  },
+  "eslintConfig": {
+    "extends": "@prodigy/eslint-config-prodigy"
+  },
+  "pre-commit": [
+    "lint",
+    "test",
+    "build:doc"
+  ]
+}
